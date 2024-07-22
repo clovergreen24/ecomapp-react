@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from "flowbite-react";
+import  ItemsList  from './components/ItemsList';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           count is {count}
         </button>
         <Button>Click me</Button>
+        <ItemsList />
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
