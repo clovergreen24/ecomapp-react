@@ -1,9 +1,11 @@
 
+
 export interface Product {
     id: number;
     name: string;
     price: number;
     description: string;
     active: boolean;
-    image: string;
+    category_id: number;
+    image_url: string | undefined;
     }

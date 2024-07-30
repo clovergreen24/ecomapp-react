@@ -1,25 +1,28 @@
 
 "use client";
 import { Navbar } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 
 const MyNavbar = () =>  {
   return (
-    <div className="absolute top-0 left-0 right-0">
-    <Navbar fluid rounded>
-      <Navbar.Brand href="https://flowbite-react.com">
-        <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Flowbite React</span>
+    
+    <Navbar  className=" mb-4">
+      <Navbar.Brand>
+        <Link to="/" className="flex flex-row items-center">
+        <img src="/logo.png" className="mr-3 h-16" alt="Kawaii Store Logo" />
+        <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white text-pink-500">Kawaii Store</span>
+        </Link>
       </Navbar.Brand>
       
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Home
+        <Navbar.Link href="#" className="flex flex-row text-pink-500 self-center items-center mr-8 font-semibold tracking-wide text-base">
+          <img src="/shopping-cart.png" className="mr-3 h-8" alt="Cart" />
+          My cart
         </Navbar.Link>
-        <Navbar.Link href="#">My cart</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
-    </div>
+   
   );
 }
 
