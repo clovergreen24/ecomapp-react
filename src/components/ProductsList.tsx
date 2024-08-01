@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Product } from '../interfaces/Product'; 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const ProductsList = () => {
   const [products, setProducts] = useState<Product[]>([]); // Specify the type of the 'products' state as an array of 'Product'.
@@ -19,6 +19,7 @@ const ProductsList = () => {
     <div className="container mt-10 ml-20 mr-20 px-4">
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {products.map(product => (
+        <Link to={`/${category_id}/products/${product.id}`}>
         <div key={product.id} className="bg-white shadow-md rounded-lg p-4">
           <img
             src={product.image_url}
@@ -31,6 +32,7 @@ const ProductsList = () => {
             Add to Cart
           </button>
         </div>
+        </Link>
       ))}
     </div>
   </div>

@@ -25,7 +25,7 @@ const CategoriesList = () => {
             alt={category.name}
             className="w-full h-48 object-cover mb-4 rounded-lg"
           />
-          <Link to={`/products/${category.id}`} className="text-xl font-bold mb-2 text-pink-800">{category.name}</Link>
+          <Link to={`/${category.id}/products`} className="text-xl font-bold mb-2 text-pink-800">{category.name}</Link>
           
             <p className="text-pink-700 mb-4">{category.description}</p>
         </div>

@@ -15,12 +15,13 @@ const MyNavbar = () =>  {
         </Link>
       </Navbar.Brand>
       
-      <Navbar.Collapse>
-        <Navbar.Link href="#" className="flex flex-row text-pink-500 self-center items-center mr-8 font-semibold tracking-wide text-base">
+      <Link to="/cart">
+        <div className="flex flex-row text-pink-500 self-center items-center mr-8 font-semibold tracking-wide text-base">
           <img src="/shopping-cart.png" className="mr-3 h-8" alt="Cart" />
           My cart
-        </Navbar.Link>
-      </Navbar.Collapse>
+          </div>
+        </Link>
+      
     </Navbar>
    
   );
