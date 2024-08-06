@@ -29,7 +29,7 @@ const ProductsList = () => {
           <h2 className="text-xl font-bold mb-2 text-pink-800">{product.name}</h2>
           <p className="text-pink-700 mb-4">${product.price}</p>
           <button className="bg-pink-500 text-white py-2 px-4 rounded hover:bg-pink-600">
-            Add to Cart
+            View Product
           </button>
         </div>
         </Link>
