@@ -24,13 +24,13 @@ function ProductPage () {
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/v1/products/'+ (product_id ? product_id.toString() : ''))
-        .then(response => {console.log(response.data),setProduct(response.data)})
+        .then(response => {setProduct(response.data)})
         .catch(error => console.error('Error fetching data:', error));
     },[]);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/v1/stocks/'+ (product_id ? product_id.toString() : ''))
-        .then(response => {console.log(response.data);setStocks(response.data)})
+        .then(response => {setStocks(response.data)})
         .catch(error => console.error('Error fetching data:', error));
     },[]);
 

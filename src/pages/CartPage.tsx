@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Stock } from "../interfaces/Stock";
 import { CartContext } from "../components/CartContext";
+import { Link } from "react-router-dom";
 
 function CartPage() {
 	const useCartContext = () => {
@@ -49,6 +50,12 @@ function CartPage() {
 						);
 					})}
 					<h5 className="text-pink-800 text-4xl m-5 text-right">Total: ${total()}</h5>
+					<div>
+						<Link to="/checkout">
+						<button className="bg-pink-600 text-white font-bold rounded p-2 align-right my-5">Place order</button>
+						</Link>
+					</div>
+					
 					<button className="bg-pink-600 text-white font-bold rounded p-2" onClick={emptyCart}>Empty cart</button>
 				</div>
 			)}
