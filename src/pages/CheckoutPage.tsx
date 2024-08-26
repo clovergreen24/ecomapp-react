@@ -9,6 +9,8 @@ import { Stock } from "../interfaces/Stock";
 function CheckoutPage() {
 	const [address, setAddress] = useState<string>("");
 	const [mail, setMail] = useState<string>("");
+	const [error, setError] = useState<string>("");
+
 	const useCartContext = () => {
 		const cartContext = useContext(CartContext);
 		if (cartContext === undefined) {
@@ -20,9 +22,9 @@ function CheckoutPage() {
 		const stocks = cart.filter((stock) => stock.product_id === id);
 		return stocks as Stock[];
 	};
-	const { cart, cartProducts, total } = useCartContext();
+	const { cart, cartProducts, total, emptyCart } = useCartContext();
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	
 
 	const handleInputAddressChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -36,10 +38,10 @@ function CheckoutPage() {
 		setMail(event.target.value);
 	};
 
+	
+
 	const placeOrder = (event: React.FormEvent<HTMLFormElement>) => {
-
 		event.preventDefault();
-
 		const order: Order = {
 			total: total(),
 			fulfilled: false,
@@ -49,6 +51,7 @@ function CheckoutPage() {
 			customer_email: mail,
 		};
 
+		
 		axios
 			.post("http://localhost:3000/api/v1/orders", order, {
 				headers: {
@@ -57,16 +60,20 @@ function CheckoutPage() {
 			})
 			.then((response) => {
 				console.log("Order placed successfully:", response.data);
+				emptyCart();
                 window.location.replace('/orderplaced');
 			})
 			.catch((error) => {
 				console.error("Error placing order:", error);
+				setError(error.response.data.error);
 			});
 	};
+
 
 	return (
 		<div>
 			<h1>Checkout Page</h1>
+			
 			<form onSubmit={placeOrder}>
 				<label htmlFor="email">Email</label>
 				<input
@@ -90,7 +97,7 @@ function CheckoutPage() {
 				/>
 				<button type="submit">Place Order</button>
 			</form>
-
+			{error && <p className="bg-red-500 rounded p-2 inline-block">Error: {error}</p>}
 			<div className="bg-white rounded p-4 items-left">
 				{cartProducts.map((product) => {
 					const stocks = findStocks(product.id);
