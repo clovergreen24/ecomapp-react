@@ -61,10 +61,13 @@ function ProductPage () {
                             <td className="border-2">
                                 <p className="text-pink-800 text-center">{stock.amount}</p>
                             </td>
+                            
                             <td>
-                            <button className="" onClick={() => removeFromCart(stock.id)}>-</button>
-                            <span className="text-pink-800 px-2">{amountInCart(stock.id)}</span>
-                            <button className="" onClick={() => addToCart(stock,product)}>+</button>
+                            {stock.amount > 0 ? (<>
+                                <button className="" onClick={() => removeFromCart(stock.id)}>-</button>
+                                <span className="text-pink-800 px-2">{amountInCart(stock.id)}</span>
+                                {amountInCart(stock.id) < stock.amount ? (<button className="" onClick={() => addToCart(stock, product)}>+</button>) : (<button className="bg-gray-500" disabled>+</button>)}</>)
+                                : (<p className="text-pink-800 text-center">Out of stock</p>)}
                             </td>
                         </tr>
                         </>

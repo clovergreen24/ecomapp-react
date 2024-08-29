@@ -71,34 +71,11 @@ function CheckoutPage() {
 
 
 	return (
-		<div>
-			<h1>Checkout Page</h1>
+        <div className="bg-pink-200 items-left mx-20 p-10 rounded">
+			<h1 className="text-pink-800 font-bold mb-10">Checkout</h1>
 			
-			<form onSubmit={placeOrder}>
-				<label htmlFor="email">Email</label>
-				<input
-					type="email"
-					id="email"
-					name="email"
-					className="text-pink-800 "
-					value={mail}
-					onChange={handleInputMailChange}
-					required
-				/>
-				<label htmlFor="address">Address</label>
-				<input
-					type="text"
-					id="address"
-					name="address"
-					className="text-pink-800 "
-					value={address}
-					onChange={handleInputAddressChange}
-					required
-				/>
-				<button type="submit">Place Order</button>
-			</form>
 			{error && <p className="bg-red-500 rounded p-2 inline-block">Error: {error}</p>}
-			<div className="bg-white rounded p-4 items-left">
+			<div className="bg-white rounded p-4 items-left m-4">
 				{cartProducts.map((product) => {
 					const stocks = findStocks(product.id);
 					return (
@@ -113,7 +90,7 @@ function CheckoutPage() {
 									{product.name}
 								</p>
 								<p className="text-pink-800 text-xl">
-									Individual price ${product.price}
+									Individual price: ${product.price}
 								</p>
 
 								{stocks.map((stock) => (
@@ -128,7 +105,33 @@ function CheckoutPage() {
 						</div>
 					);
 				})}
+				<h5 className="text-pink-800 text-4xl m-5 text-right">
+					Total: ${total()}
+				</h5>
 			</div>
+			<form onSubmit={placeOrder} className="">
+				<label htmlFor="email" className="m-2 text-pink-800 text-xl font-bold">Email:</label>
+				<input
+					type="email"
+					id="email"
+					name="email"
+					className="text-pink-800 "
+					value={mail}
+					onChange={handleInputMailChange}
+					required
+				/>
+				<label htmlFor="address" className="m-2 text-pink-800 text-xl font-bold">Address:</label>
+				<input
+					type="text"
+					id="address"
+					name="address"
+					className="text-pink-800 "
+					value={address}
+					onChange={handleInputAddressChange}
+					required
+				/>
+				<button type="submit" className="bg-pink-500 m-2 font-bold">Place Order</button>
+			</form>
 		</div>
 	);
 }
