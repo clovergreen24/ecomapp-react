@@ -9,17 +9,19 @@ export const CartContext = createContext<CartContextType | undefined>(undefined)
 interface CartProviderProps {
   children: ReactNode;
 }
+const getCart = () => {
+  const savedCart = localStorage.getItem('cart');
+  return savedCart ? JSON.parse(savedCart) : [];
+};
+const getCartProducts = () => {
+  const savedCartProducts = localStorage.getItem('cartProducts');
+  return savedCartProducts ? JSON.parse(savedCartProducts) : [];
+};
 
 const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useState<Stock[]>(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
 
-  const [cartProducts, setCartProducts] = useState<Product[]>(() => {
-    const savedCartProducts = localStorage.getItem('cart');
-    return savedCartProducts ? JSON.parse(savedCartProducts) : [];
-  });
+  const [cart, setCart] = useState<Stock[]>(getCart());
+  const [cartProducts, setCartProducts] = useState<Product[]>(getCartProducts());
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -72,11 +74,16 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const emptyCart = () => {
     setCart([]);
     setCartProducts([]);
+    localStorage.removeItem('cart');
+    localStorage.removeItem('cartProducts');
   }
 
   const total = () => {
     const values = cart.map(stock => {
-      const product = cartProducts.find(itemProduct => itemProduct.id === stock.product_id);
+      // console.log("PITOOOOOOOOOOOOO")
+      console.log(stock.product_id);
+      // console.log(cartProducts.map(itemProduct => itemProduct.id));
+      const product = cartProducts.find(itemProduct => itemProduct.id == stock.product_id);
       return stock.amount * product!.price;
     })
 
