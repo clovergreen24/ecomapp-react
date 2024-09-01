@@ -20,8 +20,8 @@ function CartPage() {
 	};
 	
 	return(
-		<div className="bg-pink-200 mx-20 p-10 rounded">
-			<h1 className="text-pink-800 font-bold mb-10">Cart</h1>
+		<div className="bg-pink-200 mx-20 p-10 pt-5 rounded">
+			<h1 className="text-pink-800 font-bold mb-5">Cart</h1>
 
 			{cart.length === 0 ? (
 				<h3 className="text-pink-800 text-2xl">Your cart is empty</h3>
@@ -30,9 +30,9 @@ function CartPage() {
 					{cartProducts.map((product) => {
 						const stocks = findStocks(product.id);
 						return (
-							<div key={product.id} className="grid grid-cols-3">
-								<img src={product.image_url} alt={product.name} className="w-40 h-40 rounded col-span-1 "/>
-								<div className="col-span-2">
+							<div key={product.id} className="flex ml-10 mt-5">
+								<img src={product.image_url} alt={product.name} className="w-40 h-40 rounded"/>
+								<div className="ml-10">
 									<p className="text-pink-800 text-2xl font-bold">{product.name}</p>
 									<p className="text-pink-800 text-xl">Individual price ${product.price}</p>
 								
@@ -48,11 +48,11 @@ function CartPage() {
 							</div>
 						);
 					})}
-					<h5 className="text-pink-800 text-4xl m-5 text-right">Total: ${total()}</h5>
-					<div className="flex justify-between">
-					<button className="bg-pink-400 text-pink-600 font-bold rounded p-4 my-6" onClick={emptyCart}>Empty cart</button>
+					<h5 className="text-pink-800 text-4xl mx-10 text-right">Total: ${total()}</h5>
+					<div className="flex justify-between mx-10">
+					<button className="bg-pink-400 text-pink-600 font-bold rounded p-4 mt-6" onClick={emptyCart}>Empty cart</button>
 						<Link to="/checkout">
-						<button className="bg-pink-600 text-white font-bold rounded p-4 my-6">Place order</button>
+						<button className="bg-pink-600 text-white font-bold rounded p-4 mt-6">Place order</button>
 						</Link>
 					</div>
 					

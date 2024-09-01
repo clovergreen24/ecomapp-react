@@ -45,21 +45,21 @@ const Checkout: React.FC<CheckoutProps> = ({ setStep, setAddress, address, setMa
 	};
 
     return (
-        <div className="bg-pink-200 items-left mx-20 p-10 rounded">
-			<h1 className="text-pink-800 font-bold mb-10">Checkout</h1>
+        <div className="bg-pink-200 mx-20 p-10 pt-5 rounded">
+			<h1 className="text-pink-800 font-bold mb-5">Checkout</h1>
 			<div>
 				
 				<div className="bg-white rounded p-4 items-left m-4">
 					{cartProducts.map((product) => {
 						const stocks = findStocks(product.id);
 						return (
-							<div key={product.id} className="grid grid-cols-3 items-center">
+							<div key={product.id} className="flex ml-10 mt-5">
 								<img
 									src={product.image_url}
 									alt={product.name}
-									className="w-40 h-40 mr-4 rounded col-span-1 "
+									className="w-40 h-40 mr-6 rounded"
 								/>
-								<div className="col-span-2">
+								<div className="ml-10">
 									<p className="text-pink-800 text-2xl font-bold">
 										{product.name}
 									</p>
