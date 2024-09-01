@@ -6,7 +6,7 @@ import { CartContext } from "../components/CartContext";
 interface PaymentProps {
 	order: Order | undefined;
 	setError: (error: string) => void;
-    setStep: (step: number) => void;
+	setStep: (step: number) => void;
 }
 
 const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
@@ -34,16 +34,34 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 				console.error("Error placing order:", error);
 				setError(error.response.data.error);
 			});
-        setStep(3);
+		setStep(3);
 	};
 
 	return (
-		<section className="bg-white py-8 antialiased dark:bg-pink-900 md:py-16">
+		<section className="bg-pink-200 items-left mx-20 px-5 py-3 rounded">
+			<button
+				className="bg-pink-300 text-pink-600 font-semibold items-center"
+				onClick={() => setStep(1)}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					className="w-6 h-6 fill-current pb-1 text-pink-700 inline-block"
+					clipRule="evenodd"
+					fillRule="evenodd"
+					strokeLinejoin="round"
+					strokeMiterlimit="2"
+				>
+					<path
+						d="m10.978 14.999v3.251c0 .412-.335.75-.752.75-.188 0-.375-.071-.518-.206-1.775-1.685-4.945-4.692-6.396-6.069-.2-.189-.312-.452-.312-.725 0-.274.112-.536.312-.725 1.451-1.377 4.621-4.385 6.396-6.068.143-.136.33-.207.518-.207.417 0 .752.337.752.75v3.251h9.02c.531 0 1.002.47 1.002 1v3.998c0 .53-.471 1-1.002 1z"
+						fillRule="nonzero"
+					/>
+				</svg>
+				Previous step
+			</button>
 			<div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
 				<div className="mx-auto max-w-5xl">
-					<h2 className="text-xl font-semibold text-pink-900 dark:text-white sm:text-2xl">
-						Payment
-					</h2>
+					<h1 className="text-pink-800 font-bold text-4xl my-5">Payment</h1>
 
 					<div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
 						<form
@@ -87,34 +105,17 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 								<div>
 									<label
 										htmlFor="card-expiration-input"
-										className="mb-2 block text-sm font-medium text-pink-900 dark:text-white"
+										className="mb-2 mt-1.5 block text-sm font-medium text-pink-900 dark:text-white"
 									>
 										Card expiration
 									</label>
 									<div className="relative">
-										<div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-											<svg
-												className="h-4 w-4 text-pink-500 dark:text-pink-400"
-												aria-hidden="true"
-												xmlns="http://www.w3.org/2000/svg"
-												width="24"
-												height="24"
-												fill="currentColor"
-												viewBox="0 0 24 24"
-											>
-												<path
-													fillRule="evenodd"
-													d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-													clipRule="evenodd"
-												/>
-											</svg>
-										</div>
 										<input
 											type="text"
 											id="card-expiration-input"
-											className="block w-full rounded-lg border border-pink-300 bg-pink-50 p-2.5 ps-9 text-sm text-pink-900 focus:border-blue-500 focus:ring-blue-500 dark:border-pink-600 dark:bg-pink-700 dark:text-white dark:placeholder:text-pink-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+											className="block w-full rounded-lg border border-pink-300 bg-pink-50 p-2.5  text-sm text-pink-900 focus:border-blue-500 focus:ring-blue-500 dark:border-pink-600 dark:bg-pink-700 dark:text-white dark:placeholder:text-pink-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
 											placeholder="12/23"
-                                            pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$"
+											pattern="^(0[1-9]|1[0-2])\/([0-9]{2})$"
 											required
 										/>
 									</div>
@@ -123,14 +124,14 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 									<label className="mb-2 block text-sm font-medium text-pink-900 inline-block dark:text-white">
 										CCV
 										<button
-											className="p-1 rounded-full text-pink-400 hover:text-pink-700 dark:text-gray-500 inline-block group dark:hover:text-white"
+											className="p-1 ml-1 rounded-full text-pink-400 hover:text-pink-700 dark:text-gray-500 inline-block group dark:hover:text-white"
 											aria-label="Info"
 										>
 											<svg
-												className="h-5 w-5"
+												className="h-4 w-4"
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"
-												viewBox="0 0 24 24"
+												viewBox="2 2 20 20"
 												stroke="currentColor"
 											>
 												<path
@@ -189,7 +190,7 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 							</div>
 							<div className="mt-6 flex items-center justify-center gap-8">
 								<img
-									className="h-8 w-auto dark:hidden"
+									className="h-8 w-auto  dark:hidden"
 									src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal.svg"
 									alt=""
 								/>

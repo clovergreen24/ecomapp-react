@@ -17,10 +17,11 @@ function CheckoutPage() {
 
 	return (
 		<div>
-		{error && (<p className="bg-red-500 rounded p-2 inline-block">Error: {error}</p>)}
-		{step === 1 && <Checkout setStep={setStep} setAddress={setAddress} address={address} setMail={setMail} mail={mail} setOrder={setOrder} order={order}/>}
-		{step === 2 && <Payment order={order} setError={setError} setStep={setStep} />}
-		{step === 3 && <OrderPlaced/>}
+			
+			{error && (<p className="bg-red-500 rounded p-2 inline-block">We're so sorry! {error}</p>)}
+			{step === 1 && <Checkout setStep={setStep} setAddress={setAddress} address={address} setMail={setMail} mail={mail} setOrder={setOrder} order={order}/>}
+			{step === 2 && <Payment order={order} setError={setError} setStep={setStep} />}
+			{step === 3 && <OrderPlaced/>}
 		</div>
 	);
 }
