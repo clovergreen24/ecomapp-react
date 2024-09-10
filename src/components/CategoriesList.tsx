@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Category } from '../interfaces/Category'; 
 import { Link } from 'react-router-dom';
-
+import { ENDPOINTS } from '../config';
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState<Category[]>([]); // Specify the type of the 'products' state as an array of 'Product'.
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/v1/categories')
+    axios.get(ENDPOINTS.CATEGORIES)
       .then(response => setCategories(response.data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);

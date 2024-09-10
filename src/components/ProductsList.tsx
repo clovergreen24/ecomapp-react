@@ -3,6 +3,7 @@ import axios from "axios";
 import { Product } from "../interfaces/Product";
 import { Link, useParams } from "react-router-dom";
 import { Category } from "../interfaces/Category";
+import { ENDPOINTS } from "../config";
 
 const ProductsList = () => {
 	const [products, setProducts] = useState<[Product[]]>([[]]);
@@ -12,8 +13,7 @@ const ProductsList = () => {
 	useEffect(() => {
 		axios
 			.get(
-				"http://localhost:3000/api/v1/products/by_category/" +
-					(category_id ? category_id.toString() : "")
+				ENDPOINTS.PRODUCTS_BY_CATEGORY(category_id ? category_id.toString() : "")
 			)
 			.then((response) => setProducts(response.data))
 			.catch((error) => console.error("Error fetching data:", error));
@@ -22,8 +22,7 @@ const ProductsList = () => {
 	useEffect(() => {
 		axios
 			.get(
-				"http://localhost:3000/api/v1/categories/" +
-					(category_id ? category_id.toString() : "")
+				ENDPOINTS.CATEGORY(category_id ? category_id.toString() : "")
 			)
 			.then((response) => setCategory(response.data))
 			.catch((error) => console.error("Error fetching data:", error));

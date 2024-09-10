@@ -4,6 +4,7 @@ import { CartContext } from "../components/CartContext";
 import { Link } from "react-router-dom";
 import MinusPlusButtons from "../components/MinusPlusButtons";
 import axios from "axios";
+import { ENDPOINTS } from "../config";
 
 function CartPage() {
 	const useCartContext = () => {
@@ -27,7 +28,7 @@ function CartPage() {
 			try{
 				const stocklist = cart.map(stock => stock.id).join(',');
 				axios
-			.get("http://localhost:3000/api/v1/stocks/available_stock/"+ stocklist)
+			.get(ENDPOINTS.AVAILABLE_STOCK(stocklist))
 			.then((response) => {
 				setStocks(response.data);
 			})

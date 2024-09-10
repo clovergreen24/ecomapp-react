@@ -2,6 +2,7 @@ import axios from "axios";
 import { Order } from "../interfaces/Order";
 import { useContext } from "react";
 import { CartContext } from "../components/CartContext";
+import { ENDPOINTS } from "../config";
 
 interface PaymentProps {
 	order: Order | undefined;
@@ -19,22 +20,54 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 	};
 	const { emptyCart, total } = useCartContext();
 
-	const placeOrder = () => {
-		axios
-			.post("http://localhost:3000/api/v1/orders", order, {
+	// const placeOrder = async () => {
+	// 	axios
+	// 		.post("http://localhost:3000/api/v1/orders", order, {
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 		})
+	// 		.then((response) => {
+	// 			console.log("Order placed successfully:", response.data);
+	// 			emptyCart();
+	// 			setStep(3);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.error("Error placing order:", error);
+	// 			setError(error.response.data.error);
+	// 		});
+	// };
+	const placeOrder = async () => {
+		try {
+			const response = await axios.post(`${ENDPOINTS.PLACE_ORDER}`, order, {
 				headers: {
 					"Content-Type": "application/json",
 				},
-			})
-			.then((response) => {
-				console.log("Order placed successfully:", response.data);
-				emptyCart();
-				setStep(3);
-			})
-			.catch((error) => {
-				console.error("Error placing order:", error);
-				setError(error.response.data.error);
 			});
+			console.log("Order placed successfully:", response.data);
+			emptyCart();
+			setStep(3);
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.code === "ECONNABORTED") {
+					console.error("Request was aborted or timed out.");
+				} else if (error.response) {
+					console.error("Error response data:", error.response.data);
+					console.error("Error status:", error.response.status);
+				} else {
+					console.error("Error message:", error.message);
+				}
+				setError("An error occurred while placing the order.");
+			} else {
+				console.error("Unexpected error:", error);
+				setError("An unexpected error occurred.");
+			}
+		}
+	};
+
+	const handleSubmit = (event: React.FormEvent) => {
+		event.preventDefault();
+		placeOrder();
 	};
 
 	return (
@@ -65,7 +98,7 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 
 					<div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
 						<form
-							onSubmit={placeOrder}
+							onSubmit={handleSubmit}
 							className="w-full rounded-lg border border-pink-200 bg-white p-4 shadow-sm dark:border-pink-700 dark:bg-pink-800 sm:p-6 lg:max-w-xl lg:p-8"
 						>
 							<div className="mb-6 grid grid-cols-2 gap-4">

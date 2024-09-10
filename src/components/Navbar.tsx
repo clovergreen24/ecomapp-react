@@ -3,8 +3,8 @@
 import { Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
 
-
 const MyNavbar = () =>  {
+  
   return (
     
     <Navbar  className=" mb-4">
@@ -23,7 +23,7 @@ const MyNavbar = () =>  {
         </Link>
       
     </Navbar>
-   
+  
   );
 }
 

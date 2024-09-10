@@ -5,6 +5,7 @@ import axios from "axios";
 import { Stock } from "../interfaces/Stock";
 import BackButton from "../components/BackButton";
 import MinusPlusButtons from "../components/MinusPlusButtons";
+import { ENDPOINTS } from "../config";
 
 function ProductPage() {
 	const [product, setProduct] = useState<Product>({} as Product);
@@ -15,8 +16,7 @@ function ProductPage() {
 	useEffect(() => {
 		axios
 			.get(
-				"http://localhost:3000/api/v1/products/" +
-					(product_id ? product_id.toString() : "")
+				ENDPOINTS.PRODUCT(product_id ? product_id.toString() : "")
 			)
 			.then((response) => {
 				setProduct(response.data);
@@ -27,8 +27,7 @@ function ProductPage() {
 	useEffect(() => {
 		axios
 			.get(
-				"http://localhost:3000/api/v1/stocks/" +
-					(product_id ? product_id.toString() : "")
+				ENDPOINTS.PRODUCT_STOCKS(product_id ? product_id.toString() : "")
 			)
 			.then((response) => {
 				setStocks(response.data);
