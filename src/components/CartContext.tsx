@@ -80,9 +80,9 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const total = () => {
     const values = cart.map(stock => {
-      // console.log("PITOOOOOOOOOOOOO")
+      
       console.log(stock.product_id);
-      // console.log(cartProducts.map(itemProduct => itemProduct.id));
+      
       const product = cartProducts.find(itemProduct => itemProduct.id == stock.product_id);
       return stock.amount * product!.price;
     })

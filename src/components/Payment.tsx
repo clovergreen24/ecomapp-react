@@ -29,12 +29,12 @@ const Payment: React.FC<PaymentProps> = ({ order, setError, setStep }) => {
 			.then((response) => {
 				console.log("Order placed successfully:", response.data);
 				emptyCart();
+				setStep(3);
 			})
 			.catch((error) => {
 				console.error("Error placing order:", error);
 				setError(error.response.data.error);
 			});
-		setStep(3);
 	};
 
 	return (

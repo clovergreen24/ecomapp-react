@@ -72,7 +72,7 @@ function ProductPage() {
 									</td>
 
 									<td className="">
-                                        <MinusPlusButtons stock={stock} product={product}/>
+                                        <MinusPlusButtons stock={stock} product={product} availableStock={stock.amount}/>
 									</td>
 								</tr>
 							</>

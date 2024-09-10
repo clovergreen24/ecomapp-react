@@ -6,9 +6,10 @@ import { Product } from "../interfaces/Product";
 interface MinusPlusButtonsProps{
     stock: Stock;
     product: Product;
+    availableStock: number;
 }
 
-const MinusPlusButtons: React.FC<MinusPlusButtonsProps> = ({stock,product}) => {
+const MinusPlusButtons: React.FC<MinusPlusButtonsProps> = ({stock, product, availableStock}) => {
     const useCartContext = () => {
 		const cartContext = useContext(CartContext);
 		if (cartContext === undefined) {
@@ -16,9 +17,9 @@ const MinusPlusButtons: React.FC<MinusPlusButtonsProps> = ({stock,product}) => {
 		}
 		return cartContext;
 	};
-
-	const { addToCart, removeFromCart, amountInCart } = useCartContext();
     
+	const { addToCart, removeFromCart, amountInCart } = useCartContext();
+
     return (
         <>
         {stock.amount > 0 ? (
@@ -35,7 +36,7 @@ const MinusPlusButtons: React.FC<MinusPlusButtonsProps> = ({stock,product}) => {
                 <span className="text-pink-800 px-2 ">
                     {amountInCart(stock.id)}
                 </span>
-                {amountInCart(stock.id) < stock.amount ? (
+                {amountInCart(stock.id) < availableStock ? (
                     <button
                         className="bg-pink-300 p-2"
                         onClick={() => addToCart(stock, product)}

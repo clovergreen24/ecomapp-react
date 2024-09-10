@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Stock } from "../interfaces/Stock";
 import { CartContext } from "../components/CartContext";
 import { Link } from "react-router-dom";
 import MinusPlusButtons from "../components/MinusPlusButtons";
+import axios from "axios";
 
 function CartPage() {
 	const useCartContext = () => {
@@ -12,13 +13,36 @@ function CartPage() {
 		}
 		return cartContext;
 	};
-	const { cart, cartProducts, emptyCart, total } = useCartContext();
+	const { cart, cartProducts, emptyCart, total} = useCartContext();
+	const [stocks, setStocks] = useState<Stock[]>(cart);
 
 	const findStocks = (id: number) => {
 		const stocks = cart.filter((stock) => stock.product_id === id);
 		return stocks as Stock[];
 	};
-	
+
+	useEffect(() => {
+		
+		const fetchStocks = async () => {
+			try{
+				const stocklist = cart.map(stock => stock.id).join(',');
+				axios
+			.get("http://localhost:3000/api/v1/stocks/available_stock/"+ stocklist)
+			.then((response) => {
+				setStocks(response.data);
+			})
+			} catch(error){
+				console.error("Error fetching data:", error);
+			}
+		}
+		fetchStocks();
+	},[cart]);
+
+	const findAvailableStock = (id: number): Stock => {
+		return stocks.find((stock) => stock.id === id) || ({} as Stock);
+	}
+
+
 	return(
 		<div className="bg-pink-200 mx-20 p-10 pt-5 rounded">
 			<h1 className="text-pink-800 font-bold mb-5">Cart</h1>
@@ -40,7 +64,7 @@ function CartPage() {
                                     <div key={stock.id} className="">
                                         <p className="text-pink-800 text-xl">Size: {stock.size}</p>
                                         <p className="text-pink-800 text-xl">Amount: {stock.amount}</p>
-											<MinusPlusButtons stock={stock} product={product}/>
+											<MinusPlusButtons stock={stock} product={product} availableStock={findAvailableStock(stock.id).amount} />
                                     </div>
                                 )
                                 ))}
